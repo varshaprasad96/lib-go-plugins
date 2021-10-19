@@ -27,10 +27,8 @@ var _ machinery.Template = &Main{}
 // Main scaffolds a file that defines the controller manager entry point
 type Main struct {
 	machinery.TemplateMixin
-	machinery.BoilerplateMixin
-	machinery.DomainMixin
 	machinery.RepositoryMixin
-	machinery.ComponentConfigMixin
+	machinery.BoilerplateMixin
 }
 
 // SetTemplateDefaults implements file.Template
@@ -39,39 +37,38 @@ func (f *Main) SetTemplateDefaults() error {
 		f.Path = filepath.Join(defaultMainPath)
 	}
 
+	f.TemplateBody = mainTemplate
+
+	f.IfExistsAction = machinery.OverwriteFile
+
 	return nil
 
 }
 
 var mainTemplate = `{{ .Boilerplate }}
-
 package main
 
 import (
-	"context"
+    "context"
 )
 
 func main() {
 	ctx := context.TODO()
-	var err error
-
 
 	// Start the informers to make sure their caches are in sync and are updated periodically.
-	func _, informer := range []internface {
+	for _, informer := range []interface {
 		Start(stopCh <-chan struct{})
 	}{
-		// TODO: If there are any informers for your controller, make sure to 
+		// TODO: If there are any informers for your controller, make sure to
 		// add them here to start the informer.
-
 	} {
 		informer.Start(ctx.Done())
 	}
 
-
 	// Start and run the controller
 	for _, controllerint := range []interface {
 		Run(ctx context.Context, workers int)
-	} {
+	}{
 		// TODO: Add the name of controllers which have been instantiated previosuly for the
 		// operator.
 	} {
@@ -80,6 +77,7 @@ func main() {
 
 	<-ctx.Done()
 	return
+
 }
 
 `

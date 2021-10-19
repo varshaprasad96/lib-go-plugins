@@ -97,14 +97,17 @@ func (p *initSubcommand) Scaffold(fs machinery.Filesystem) error {
 	scaffolder.InjectFS(fs)
 
 	err := scaffolder.Scaffold()
+	fmt.Println("here:1")
 	if err != nil {
 		return err
 	}
 
+	fmt.Println("here2")
 	// Pin controller-runtime
 	err = util.RunCmd("Get controller runtime", "go", "get",
 		"sigs.k8s.io/controller-runtime@"+scaffolds.ControllerRuntimeVersion)
 
+	fmt.Println("here3")
 	if err != nil {
 		return err
 	}
