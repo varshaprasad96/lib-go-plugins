@@ -30,6 +30,12 @@ const (
 	ControllerRuntimeVersion = "v0.10.0"
 	// LibraryGoVersion is the openshift/library-go version used in the project
 	LibraryGoVersion = "v0.0.0-20210914071953-94a0fd1d5849"
+	// ControllerToolsVersion is the kubernetes-sigs/controller-tools version to be used in the project
+	ControllerToolsVersion = "v0.7.0"
+	// KustomizeVersion is the kubernetes-sigs/kustomize version to be used in the project
+	KustomizeVersion = "v3.8.7"
+
+	imageName = "controller:latest"
 )
 
 var _ plugins.Scaffolder = &initScaffolder{}
@@ -98,5 +104,11 @@ func (s *initScaffolder) Scaffold() error {
 		},
 		&templates.GitIgnore{},
 		&templates.Main{},
+		&templates.Makefile{
+			Image:                  imageName,
+			BoilerplatePath:        s.boilerplatePath,
+			ControllerToolsVersion: ControllerToolsVersion,
+			KustomizeVersion:       KustomizeVersion,
+		},
 	)
 }
