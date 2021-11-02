@@ -110,5 +110,7 @@ func (s *initScaffolder) Scaffold() error {
 			ControllerToolsVersion: ControllerToolsVersion,
 			KustomizeVersion:       KustomizeVersion,
 		},
+		&templates.Dockerfile{},
+		&templates.DockerIgnore{},
 	)
 }
