@@ -67,18 +67,25 @@ import (
 	"github.com/openshift/library-go/pkg/controller/factory"
 )
 
+//+kubebuilder:rbac:groups={{ .Resource.QualifiedGroup }},resources={{ .Resource.Plural }},verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups={{ .Resource.QualifiedGroup }},resources={{ .Resource.Plural }}/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups={{ .Resource.QualifiedGroup }},resources={{ .Resource.Plural }}/finalizers,verbs=update
+
 type {{ .Resource.Kind }}Controller struct {
 	// TODO: fill in the controller you would like to configure
 	// for the resource.
 }
 
+// New{{ .Resource.Kind }}Controller() creates a new instance of your controller.
 func New{{ .Resource.Kind }}Controller() factory.Controller {
 	// TODO: use this to create a new instance of your controller.
+	// The controller can further be configured here to be either event or time
+	// based.
 	
 	return nil
 }
 
-// sync contains the logic of the reconciler
+// sync contains the logic of the reconciler. 
 func (c *{{ .Resource.Kind }}Controller) sync(ctx context.Context, syncContext factory.SyncContext) error {
 
 	// TODO: implement your reconciler logic here.

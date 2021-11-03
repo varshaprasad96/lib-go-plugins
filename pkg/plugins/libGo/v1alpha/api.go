@@ -165,3 +165,21 @@ func (p *createAPISubcommand) Scaffold(fs machinery.Filesystem) error {
 	scaffolder.InjectFS(fs)
 	return scaffolder.Scaffold()
 }
+
+func (p *createAPISubcommand) PostScaffold() error {
+
+	err := util.RunCmd("Update dependencies", "go", "mod", "tidy")
+	if err != nil {
+		return err
+	}
+
+	if p.resource.HasAPI() {
+		err = util.RunCmd("Running make", "make", "generate")
+		if err != nil {
+			return err
+		}
+		fmt.Print("Next: implement your new API and generate the manifests (e.g. CRDs,CRs) with:\n$ make manifests\n")
+	}
+
+	return nil
+}

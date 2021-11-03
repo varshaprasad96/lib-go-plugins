@@ -40,7 +40,7 @@ func (f *Group) SetTemplateDefaults() error {
 				f.Path = filepath.Join("apis", "%[version]", "groupversion_info.go")
 			}
 		} else {
-			f.Path = filepath.Join("api", "%[version]", "groupversion_info.go")
+			f.Path = filepath.Join("api", "%[group]", "%[version]", "groupversion_info.go")
 		}
 	}
 
@@ -89,7 +89,7 @@ func Resource(resource string) schema.GroupResource {
 func addknownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&{{ .Resource.Kind }}{},
-		&{{ .Resource.Kind }}List)
+		&{{ .Resource.Kind }}List{})
 
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil

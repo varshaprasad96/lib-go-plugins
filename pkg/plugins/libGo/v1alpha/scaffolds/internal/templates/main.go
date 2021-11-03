@@ -50,10 +50,19 @@ package main
 
 import (
     "context"
+	ctrl "sigs.k8s.io/controller-runtime"
 )
 
 func main() {
 	ctx := context.TODO()
+
+	// Create a *rest.Config for talking to a Kubernetes apiserver.
+	// If you would like to specify the kubeconfig manually, this can be removed.
+	_ = ctrl.GetConfigOrDie()
+
+	// TODO: Instantiate the required resources to create new instances of the
+	// controller. In order to run the controller successfully, make sure to start
+	// the informers first.
 
 	// Start the informers to make sure their caches are in sync and are updated periodically.
 	for _, informer := range []interface {

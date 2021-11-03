@@ -84,13 +84,10 @@ func (s *initScaffolder) Scaffold() error {
 		return err
 	}
 
-	fmt.Println("init 1")
 	boilerplate, err := afero.ReadFile(s.fs.FS, s.boilerplatePath)
 	if err != nil {
 		return err
 	}
-
-	fmt.Println("init 2")
 
 	// Initialize machinery.Scaffold to write files to disk
 	scaffold = machinery.NewScaffold(s.fs,

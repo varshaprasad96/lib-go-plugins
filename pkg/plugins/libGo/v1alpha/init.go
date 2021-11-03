@@ -97,17 +97,14 @@ func (p *initSubcommand) Scaffold(fs machinery.Filesystem) error {
 	scaffolder.InjectFS(fs)
 
 	err := scaffolder.Scaffold()
-	fmt.Println("here:1")
 	if err != nil {
 		return err
 	}
 
-	fmt.Println("here2")
 	// Pin controller-runtime
 	err = util.RunCmd("Get controller runtime", "go", "get",
 		"sigs.k8s.io/controller-runtime@"+scaffolds.ControllerRuntimeVersion)
 
-	fmt.Println("here3")
 	if err != nil {
 		return err
 	}
@@ -119,5 +116,15 @@ func (p *initSubcommand) Scaffold(fs machinery.Filesystem) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func (p *initSubcommand) PostScaffold() error {
+	err := util.RunCmd("Update dependencies", "go", "mod", "tidy")
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("Next: define a resource with:\n$ %s create api\n", p.commandName)
 	return nil
 }
