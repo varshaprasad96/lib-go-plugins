@@ -39,12 +39,12 @@ func (f *Types) SetTemplateDefaults() error {
 	if f.Path == "" {
 		if f.MultiGroup {
 			if f.Resource.Group != "" {
-				f.Path = filepath.Join("apis", "%[group]", "%[version]", "%[kind]_types.go")
+				f.Path = filepath.Join("pkg", "apis", "%[group]", "%[version]", "%[kind]_types.go")
 			} else {
-				f.Path = filepath.Join("apis", "%[version]", "%[kind]_types.go")
+				f.Path = filepath.Join("pkg", "apis", "%[version]", "%[kind]_types.go")
 			}
 		} else {
-			f.Path = filepath.Join("api", "%[group]", "%[version]", "%[kind]_types.go")
+			f.Path = filepath.Join("pkg", "api", "%[group]", "%[version]", "%[kind]_types.go")
 		}
 	}
 
