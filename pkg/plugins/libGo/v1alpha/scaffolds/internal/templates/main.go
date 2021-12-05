@@ -20,7 +20,7 @@ import (
 	"sigs.k8s.io/kubebuilder/v3/pkg/machinery"
 )
 
-const defaultMainPath = "main.go"
+const defaultMainPath = "cmd/main.go"
 
 var _ machinery.Template = &Main{}
 

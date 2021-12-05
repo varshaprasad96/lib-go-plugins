@@ -38,9 +38,9 @@ type Controller struct {
 func (f *Controller) SetTemplateDefaults() error {
 	if f.Path == "" {
 		if f.MultiGroup && f.Resource.Group != "" {
-			f.Path = filepath.Join("controllers", "%[group]", "%[kind]_controller.go")
+			f.Path = filepath.Join("pkg", "controllers", "%[group]", "%[kind]_controller.go")
 		} else {
-			f.Path = filepath.Join("controllers", "%[kind]_controller.go")
+			f.Path = filepath.Join("pkg", "controllers", "%[kind]_controller.go")
 		}
 	}
 	f.Path = f.Resource.Replacer().Replace(f.Path)
